@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}/static/login.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <div class="left-topnav">
+            <a href="/">Все статьи</a>
+        </div>
+        <div class="right-topnav">
+            {% if request.user.is_authenticated %}
+                <a href="/article/new">Создать статью</a>
+                <a href="/logout">Выйти из аккаунта</a>
+            {% else %}
+                <a class="active" href="/login">Авторизация</a>
+                <a href="/register">Регистрация</a>
+            {% endif %}
+        </div>
+    </div>
+    <form class="form-border">{% csrf_token %}
+        <h2>Авторизация</h2>
+            <h3>Задайте свои данные для авторизации:</h3>
+            <ul class="list">
+                <li class="item">
+                    <label>Ваш никнейм</label>
+                    <input name="username" type="text" required>
+                </li>
+                <li class="item">
+                    <label>Ваш пароль</label>
+                    <input name="password" type="password" required>
+                </li>
+                <li class="button">
+                    <input class="submit-button" formmethod="post" type="submit" value="Авторизация">
+                </li>
+                <li class="authorization-button">
+                    <button class="submit-button" type="button" value="Регистрация"><a href="/register">Регистрация</a></button>
+                </li>
+            </ul>
+        <p>{{ form.errors }}</p>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Архив статей</title>
+        <link rel="stylesheet" href="{{ STATIC_URL }}/static/article.css">
+    </head>
+    <body class="archive">
+        <div class="topnav">
+            <div class="left-topnav">
+                <a class="active" href="/">Все статьи</a>
+            </div>
+            {% if request.user.is_authenticated %}
+                <div class="center-topnav">
+                    Добро пожаловать, {{ request.user.username }}
+                </div>
+            {% endif %}
+            <div class="right-topnav">
+                {% if request.user.is_authenticated %}
+                    <a href="/article/new">Создать статью</a>
+                    <a href="/logout">Выйти из аккаунта</a>
+                {% else %}
+                    <a href="/login">Авторизация</a>
+                    <a href="/register">Регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="header">
+            <img src="{{ STATIC_URL }}/static/capybara.webp" alt="Клуб любителей статейных капибар" class="archive-image">
+        </div>
+        <div>
+            {% for post in posts %}
+                <div class="one-post">
+                    <h2 class="post-title"><a href="/article/{{ post.id }}">{{ post.title }}</a></h2>
+                    <div class="article-info">
+                        <div class="article-author">
+                            {{ post.author.username }}
+                        </div>
+                        <div class="article-created-date">
+                            {{ post.created_date }}
+                        </div>
+                    </div>
+                    <p class="article-text">{{ post.get_excerpt }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

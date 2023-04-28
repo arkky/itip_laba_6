@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}/static/register.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <div class="left-topnav">
+            <a href="/">Все статьи</a>
+        </div>
+        <div class="right-topnav">
+            {% if request.user.is_authenticated %}
+                <a href="/article/new">Создать статью</a>
+                <a href="/logout">Выйти из аккаунта</a>
+            {% else %}
+                <a href="/login">Авторизация</a>
+                <a class="active" href="/register">Регистрация</a>
+            {% endif %}
+        </div>
+    </div>
+    <form class="form-border">{% csrf_token %}
+        <h2>Регистрация</h2>
+            <h3>Задайте свои данные для регистрации:</h3>
+            <ul class="list">
+                <li class="item">
+                    <label>Ваш никнейм</label>
+                    <input name="username" type="text" placeholder="capybara" required>
+                </li>
+                <li class="item">
+                    <label>Ваша почта</label>
+                    <input name="email" type="email" placeholder="example@сapybara.com" required>
+                </li>
+                <li class="item">
+                    <label>Ваш пароль</label>
+                    <input name="password" type="password" placeholder="ilovecapybara" required>
+                </li>
+                <li class="button">
+                    <input class="submit-button" type="submit" formmethod="post" value="Зарегистрироваться">
+                </li>
+                <li class="authorization-button">
+                    <!-- <input class="submit-button" type="button" value="Авторизация"> -->
+                    <button class="submit-button" type="button" value="Авторизация"><a href="/login">Авторизация</a></button>
+                </li>
+            </ul>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Статья {{ post.id }}</title>
+        <link rel="stylesheet" href="{{ STATIC_URL }}/static/article.css">
+    </head>
+    <body class="article">
+        <div class="topnav">
+            <div class="left-topnav">
+                <a href="/">Все статьи</a>
+            </div>
+            {% if request.user.is_authenticated %}
+                <div class="center-topnav">
+                    Добро пожаловать, {{ request.user.username }}
+                </div>
+            {% endif %}
+            <div class="right-topnav">
+                {% if request.user.is_authenticated %}
+                    <a href="/article/new">Создать статью</a>
+                    <a href="/logout">Выйти из аккаунта</a>
+                {% else %}
+                    <a href="/login">Авторизация</a>
+                    <a href="/register">Регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="header">
+            <img src="{{ STATIC_URL }}/static/capybara_mandarin.webp" alt="Капибара с мандаринкой на голове на горячих источниках">
+            <a href="/" class="article-link">
+                All articles
+            </a>
+        </div>
+        <div>
+            <div class="one-post">
+                <h2 class="post-title">{{ post.title }}</h2>
+                <div class="article-info">
+                    <div class="article-author">
+                        {{ post.author.username }}
+                    </div>
+                    <div class="article-created-date">
+                        {{ post.created_date }}
+                    </div>
+                </div>
+                <p class="article-text">{{ post.text }}</p>
+            </div>
+        </div>
+    </body>
+</html>
